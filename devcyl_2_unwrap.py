@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import open3d as o3d
 import numpy as np
 import copy
 import time
-import devcyl_vis
-# %matplotlib inline # if using Jupyter
-from matplotlib import pyplot as plt
 from PIL import Image
 from scipy.interpolate import griddata
+
+import open3d as o3d
+
+import devcyl_vis
 
 print("\nDEVELOPMENT OF CYLINDRICAL SURFACES IN POINT CLOUD FORMAT")
 print("  diploma thesis of Odysseus Galanakis")

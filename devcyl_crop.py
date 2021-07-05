@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import open3d as o3d
 import copy
 import time
+
+import open3d as o3d
 
 print("\nDEVELOPMENT OF CYLINDRICAL SURFACES IN POINT CLOUD FORMAT")
 print("  diploma thesis of Odysseus Galanakis")

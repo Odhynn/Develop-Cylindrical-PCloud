@@ -2,13 +2,15 @@
 
 # %% Import & Load
 
-import open3d as o3d
 import numpy as np
 import copy
 import time
-import visualize_cyl
 from scipy.optimize import leastsq
 import matplotlib.pyplot as plt
+
+import open3d as o3d
+
+import devcyl_vis
 
 # set default open3d visualization window size
 vw_width = 1600
@@ -140,11 +142,11 @@ def fit_and_calc(pcd):
     axis_max = round(pcd.get_min_bound()[2])-1
     axis_min = round(pcd.get_max_bound()[2])+1
 
-    cyl_axis = visualize_cyl.rotate_line(
+    cyl_axis = devcyl_vis.rotate_line(
         cyl_p[0], cyl_p[1], axis_min, axis_max, cyl_p[5])
 
     # visualize fitted cylinder
-    wireframe = visualize_cyl.cyl_mesh(pcd, cyl_p)
+    wireframe = devcyl_vis.cyl_mesh(pcd, cyl_p)
     o3d.visualization.draw_geometries(
         [pcd, wireframe, cyl_axis], 'Fitted Cylinder', vw_width, vw_height)
 
@@ -220,8 +222,8 @@ def thresh(pcd, cyl_p, cyl_s2p_dist, cyl_axis):
         cyl_p_th1[4] = cyl_p[4] + th
         cyl_p_th2[4] = cyl_p[4] - th
 
-        thresh1 = visualize_cyl.cyl_mesh(pcd, cyl_p_th1, 3, True)
-        thresh2 = visualize_cyl.cyl_mesh(pcd, cyl_p_th2, 3, True)
+        thresh1 = devcyl_vis.cyl_mesh(pcd, cyl_p_th1, 3, True)
+        thresh2 = devcyl_vis.cyl_mesh(pcd, cyl_p_th2, 3, True)
 
         # two consecutive visualizations convey effect of threshold cropping
         o3d.visualization.draw_geometries([pcd, thresh1, thresh2, cyl_axis],

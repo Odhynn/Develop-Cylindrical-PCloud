@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import devcyl_fit_thr
-import devcyl_vis
+import numpy as np
 import time
 import os
 import copy
-import numpy as np
+
 import open3d as o3d
+
+import devcyl_fit_thr
+import devcyl_vis
 
 print("\nDEVELOPMENT OF CYLINDRICAL SURFACES IN POINT CLOUD FORMAT")
 print("  diploma thesis of Odysseus Galanakis")

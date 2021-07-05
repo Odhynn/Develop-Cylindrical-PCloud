@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import open3d as o3d
 import copy
 
+import open3d as o3d
 
 def create_line(a, b, colour=[0, 0, 0]):
     """
