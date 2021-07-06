@@ -34,7 +34,7 @@ vwh = 900
 
 print("Open3d Version: ", o3d.__version__)
 
-# Notify the current working directory
+# display the current working directory
 cwd = os.getcwd()
 print(f"\nCurrent working directory: {cwd}")
 print("Files in the above folder may be simply specified by name.")
