@@ -153,10 +153,10 @@ with open(f"Log-Fit-{timestamp}.txt", "w") as log:
 print(f"Log file saved as Log-Fit-{timestamp}.txt")
 
 print("\nFURTHER STEPS:")
-print("Execute 'devcyl-2-unwrap.py' and provide it with the above saved")
+print("Execute 'devcyl_2_unwrap.py' and provide it with the above saved")
 print(".ply file and .txt log to develop it to a 2D image. ")
 print("In order to only develop a specific area within the point cloud")
-print("execute 'devcyl-crop.py' before that and use its product .ply instead.")
+print("execute 'devcyl_crop.py' before that and use its product .ply instead.")
 
-input("Enter any key to exit.")
+input("Press Enter to exit.")
 
