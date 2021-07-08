@@ -85,8 +85,7 @@ def crop_pcd_area(pcd):
 
 if __name__ == "__main__":
 
-    pcd_file = "PointCloud-20210621-035537.ply"
-    # pcd_file = input("Please select point cloud file to load.")
+    pcd_file = input("Please select point cloud file to load.")
 
     print(f"\nLoading '{pcd_file}' point cloud...")
     tic = time.perf_counter()

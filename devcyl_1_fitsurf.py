@@ -130,10 +130,10 @@ with open(f"Log-Fit-{timestamp}.txt", "w") as log:
     log.write("Fitted Cylinder Radius (m):\n" + str(cyl_radius))
 
     log.write("\n\n---------------------------\nFitted cylinder parameters:\n")
-    log.write("xk : " + parameter_log[-1][0] + "\n")
-    log.write("yk : " + parameter_log[-1][1] + "\n")
-    log.write("roll : " + parameter_log[-1][2] + "\n")
-    log.write("pitch : " + parameter_log[-1][3] + "\n")
+    log.write("xk (m): \n" + parameter_log[-1][0] + "\n")
+    log.write("yk (m): \n" + parameter_log[-1][1] + "\n")
+    log.write("roll (rad): \n" + parameter_log[-1][2] + "\n")
+    log.write("pitch (rad): \n" + parameter_log[-1][3] + "\n")
 
     log.write("\n\n---------------------------\nFitting loop iterations:\n")
     for i in range(len(parameter_log)):
