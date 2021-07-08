@@ -136,14 +136,14 @@ if incr_rotations == pie_slice:  # came full circle, did not find a gap
           \nDevelopment width will span 360 degrees.")
     align_rot = 0  # no rotation
 
-# find polar angle phi and use it to rotate the leftmost point onto -x axis
+# find polar angle theta and use it to rotate the leftmost point onto -x axis
 else:
-    phimin = np.arccos(xmin / r)  # because now y>0 for the xmin point
-    R = ppcd.get_rotation_matrix_from_xyz((0, 0, (np.pi-phimin)))
+    thetamin = np.arccos(xmin / r)  # because now y>0 for the xmin point
+    R = ppcd.get_rotation_matrix_from_xyz((0, 0, (np.pi-thetamin)))
     rpcd.rotate(R, center=(0, 0, 0))
 
     # total angle by which cloud was rotated
-    align_rot = z_searching_rot + (np.pi - phimin)
+    align_rot = z_searching_rot + (np.pi - thetamin)
     print(f"Leftmost point detected after turning {align_rot} rad.")
 
     rpoi_minindex = np.argmin(rpoi, axis=0)
@@ -163,13 +163,12 @@ else:
 
 # %% Conversion to Polar
 
-def nega_phi(x, y):
-    # conventional phi : counter-clockwise from positive x-axis, range (-pi,pi]
-    phi = np.arctan2(y, x)
+def nega_theta(x, y):
+    # conventional : counter-clockwise from positive x-axis, range (-pi,pi]
+    theta = np.arctan2(y, x)
     # its mirror, but better : clockwise from negative x-axis, range [0, 2*pi)
-    nega_phi = - phi + np.pi
-    # phight!
-    return(nega_phi)
+    nega_theta = - theta + np.pi
+    return(nega_theta)
 
 
 # get a table with the polar coords of the cloud points
@@ -179,8 +178,8 @@ tic = time.perf_counter()
 rpoi_polar = np.empty((len(rpoi), 2), float)
 for i in range(len(rpoi)):
     rho = r
-    phi = nega_phi(rpoi[i][0], rpoi[i][1])
-    rpoi_polar[i] = [rho, phi]
+    theta = nega_theta(rpoi[i][0], rpoi[i][1])
+    rpoi_polar[i] = [rho, theta]
 
 toc = time.perf_counter()
 print(f"Calculated in {toc - tic:0.4f} sec.\n")
@@ -188,10 +187,10 @@ print(f"Calculated in {toc - tic:0.4f} sec.\n")
 print("Cartesian coords: ", rpoi)
 print("Polar coords: ", rpoi_polar)
 
-phimin = np.amin(rpoi_polar, axis=0)[1]
-phimax = np.amax(rpoi_polar, axis=0)[1]
-print("Minimum phi: ", '{0:.4f}'.format(phimin))
-print("Maximum phi: ", '{0:.4f}'.format(phimax))
+thetamin = np.amin(rpoi_polar, axis=0)[1]
+thetamax = np.amax(rpoi_polar, axis=0)[1]
+print("Minimum theta: ", '{0:.4f}'.format(thetamin))
+print("Maximum theta: ", '{0:.4f}'.format(thetamax))
 
 
 # %% Pixel Size in Object Space
@@ -203,7 +202,7 @@ gsd = input(
 
 # real dimensions of developed image (in metres)
 devh = rpcd.get_max_bound()[2] - rpcd.get_min_bound()[2]
-devw = (phimax - phimin) * r
+devw = (thetamax - thetamin) * r
 
 # developed image resolution (in pixels)
 Nx = round(devw / gsd)
@@ -235,9 +234,9 @@ for i in range(My):
         xij = devxy[i][j][0]
         yij = devxy[i][j][1]
 
-        phiij = -(xij/r) + np.pi  # conventional counter-clockwise phi angle
-        Xij = np.cos(phiij) * r
-        Yij = np.sin(phiij) * r
+        thetaij = -(xij/r) + np.pi  # conventional counter-clockwise theta
+        Xij = np.cos(thetaij) * r
+        Yij = np.sin(thetaij) * r
         Zij = yij + zmin
         devXYZ[i][j] = [Xij, Yij, Zij]
 
