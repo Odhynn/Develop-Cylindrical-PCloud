@@ -205,7 +205,7 @@ def thresh(pcd, cyl_p, cyl_s2p_dist, cyl_axis):
 
     while True:
         # request the threshold for admitting points into the next iteration
-        th = float(input("Selection Threshold"
+        th = float(input("\nSelection Threshold"
                          "\nDefine max. point distance to cyl. surface (m): "))
         # but not larger than the cylinder radius
         if th >= cyl_p[4]:

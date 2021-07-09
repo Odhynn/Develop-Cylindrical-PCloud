@@ -15,9 +15,7 @@ print("  diploma thesis of Odysseus Galanakis")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
 print()
-print("  Utilizing Python 3.8")
-print("  with Open3d 0.13: A Modern Library for 3D Data Processing")
-print("               by Qian-Yi Zhou, Jaesik Park, Vladlen Koltun")
+print("  Utilizing Python 3.8 with NumPy, SciPy, and Open3D 0.13")
 print()
 print("First Step : Fitting the Cylinder")
 print()
@@ -43,7 +41,7 @@ pcd_path = None
 
 # ask the user to specify point cloud file
 while True:
-    pcd_path = os.path.normpath(input("Enter point cloud file path: "))
+    pcd_path = os.path.normpath(input("\nEnter point cloud file path: "))
     if not os.path.isfile(pcd_path):
         print("Invalid path.")
     else:
@@ -73,7 +71,7 @@ while True:
     parameter_log.append(fitcyl[1][:-1])
 
     # threshold
-    thresh_q = input("Apply distance threshold to crop off outliers?"
+    thresh_q = input("\nApply distance threshold to crop off outliers?"
                      "\nEnter (y) to crop, any other key to continue: ")
     if thresh_q == "y":
         pcd1, thresh = devcyl_fit_thr.thresh(
@@ -130,12 +128,12 @@ with open(f"Log-Fit-{timestamp}.txt", "w") as log:
     log.write("Fitted Cylinder Radius (m):\n" + str(cyl_radius))
 
     log.write("\n\n---------------------------\nFitted cylinder parameters:\n")
-    log.write("xk (m): \n" + parameter_log[-1][0] + "\n")
-    log.write("yk (m): \n" + parameter_log[-1][1] + "\n")
-    log.write("roll (rad): \n" + parameter_log[-1][2] + "\n")
-    log.write("pitch (rad): \n" + parameter_log[-1][3] + "\n")
+    log.write("xk (m): \n" + str(parameter_log[-1][0]) + "\n")
+    log.write("yk (m): \n" + str(parameter_log[-1][1]) + "\n")
+    log.write("roll (rad): \n" + str(parameter_log[-1][2]) + "\n")
+    log.write("pitch (rad): \n" + str(parameter_log[-1][3]) + "\n")
 
-    log.write("\n\n---------------------------\nFitting loop iterations:\n")
+    log.write("\n---------------------------\nFitting loop iterations:\n")
     for i in range(len(parameter_log)):
         log.write("\nIteration " + str(i+1) + "\n")
         log.write("xk : " + "{:.3f}".format(parameter_log[i][0]) + "\n")

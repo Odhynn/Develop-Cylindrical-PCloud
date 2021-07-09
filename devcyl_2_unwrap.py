@@ -15,9 +15,7 @@ print("  diploma thesis of Odysseus Galanakis")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
 print()
-print("  Utilizing Python 3.8")
-print("  with Open3d 0.13: A Modern Library for 3D Data Processing")
-print("               by Qian-Yi Zhou, Jaesik Park, Vladlen Koltun")
+print("  Utilizing Python 3.8 with NumPy, SciPy, and Open3D 0.13")
 print()
 print("Second Step : Unwrapping the Cylinder")
 print()
@@ -110,7 +108,7 @@ rpcd = copy.deepcopy(ppcd)
 print("\nDetecting leftmost point...")
 
 # the cloud will turn clockwise around z-axis by this increment
-pie_slice = 12
+pie_slice = 8
 yaw_incr = 2*np.pi / pie_slice
 
 # until a gap is detected : no point of the cloud lies on the negative x-axis
@@ -182,10 +180,10 @@ for i in range(len(rpoi)):
     rpoi_polar[i] = [rho, theta]
 
 toc = time.perf_counter()
-print(f"Calculated in {toc - tic:0.4f} sec.\n")
+print(f"Calculated in {toc - tic:0.4f} sec.")
 
-print("Cartesian coords: ", rpoi)
-print("Polar coords: ", rpoi_polar)
+print("\nCartesian coords: ", rpoi)
+print("\nPolar coords: ", rpoi_polar)
 
 thetamin = np.amin(rpoi_polar, axis=0)[1]
 thetamax = np.amax(rpoi_polar, axis=0)[1]
@@ -196,8 +194,7 @@ print("Maximum theta: ", '{0:.4f}'.format(thetamax))
 # %% Pixel Size in Object Space
 
 # ask for GSD (real distance between pixel centers)
-gsd = input(
-    "Define Ground Sampling Distance (m): ")
+gsd = float(input("\nDefine Ground Sampling Distance (m): "))
 
 
 # real dimensions of developed image (in metres)
@@ -215,6 +212,9 @@ devimg = np.zeros((My, Nx, 3), dtype=np.uint8)
 # developed image pixel coordinates -- M rows, N columns, each cell holds [x,y]
 devxy = np.zeros((My, Nx, 2))
 
+print("\nCalculating developed image pixel coordinates...")
+tic = time.perf_counter()
+
 # table ij to pixel centre xy
 for i in range(My):
     for j in range(Nx):
@@ -222,12 +222,17 @@ for i in range(My):
         yij = (gsd/2) + My*gsd - (i+1)*gsd
         devxy[i][j] = [xij, yij]
 
+toc = time.perf_counter()
+print(f"Calculated in {toc - tic:0.4f} sec.")
 print("\nDeveloped image pixel coordinates (x, y):\n", devxy)
 
 
 # object space cart. coordinates -- M rows, N columns, each cell holds [X,Y,Z]
 devXYZ = np.zeros((My, Nx, 3))
 zmin = rpcd.get_min_bound()[2]
+
+print("\nCalculating corresponding pixel coordinates in object space...")
+tic = time.perf_counter()
 
 for i in range(My):
     for j in range(Nx):
@@ -240,6 +245,8 @@ for i in range(My):
         Zij = yij + zmin
         devXYZ[i][j] = [Xij, Yij, Zij]
 
+toc = time.perf_counter()
+print(f"Calculated in {toc - tic:0.4f} sec.")
 print("\nCorresponding pixel coordinates in object space (X, Y, Z):\n", devXYZ)
 
 
@@ -272,7 +279,7 @@ dcol = np.asarray(dpcd.colors)
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 
 while True:
-    nn_or_2l = input("Select method to resample developed image colour by:\n\
+    nn_or_2l = input("\nSelect method to resample developed image colour by:\n\
                      enter (1) for Nearest Neighbour\n\
                      enter (2) for Bilinear Interpolation\n\
                      or enter (3) to log and exit: ")
@@ -326,12 +333,12 @@ print("Saved corresponding pixel coordinates in devXYZ-{timestamp}.npy")
 with open(f"Log-Unwrap-{timestamp}.txt", "w") as log:
     log.write("Source point cloud : " + pcd_path + "\n")
     log.write("Source fitting log file : " + log_path + "\n")
-    log.write("Leftmost point alignment rotation angle (rad):\n" + align_rot)
+    log.write("Leftmost point alignment rotation angle (rad):\n" + str(align_rot))
 
-    log.write("\nGround Sampling Distance (m):\n" + gsd)
-    log.write("\nDeveloped Area Width (m):\n" + devw)
-    log.write("\nDeveloped Area Height (m):\n" + devh)
-    log.write("\nDeveloped Image Width (pixels):\n" + Nx)
-    log.write("\nDeveloped Image Height (pixels):\n" + My)
+    log.write("\nGround Sampling Distance (m):\n" + str(gsd))
+    log.write("\nDeveloped Area Width (m):\n" + str(devw))
+    log.write("\nDeveloped Area Height (m):\n" + str(devh))
+    log.write("\nDeveloped Image Width (pixels):\n" + str(Nx))
+    log.write("\nDeveloped Image Height (pixels):\n" + str(My))
 
 input("Enter any key to exit.")

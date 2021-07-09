@@ -10,9 +10,7 @@ print("  diploma thesis of Odysseus Galanakis")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
 print()
-print("  Utilizing Python 3.8")
-print("  with Open3d 0.13: A Modern Library for 3D Data Processing")
-print("               by Qian-Yi Zhou, Jaesik Park, Vladlen Koltun")
+print("  Utilizing Python 3.8 with NumPy, SciPy, and Open3D 0.13")
 print()
 print("Intermediate Step : Cropping to Desired Area")
 print()
@@ -33,10 +31,6 @@ def crop_pcd_area(pcd):
     print("\nPoint cloud max. xyz:", pcd.get_max_bound())
     print("Point cloud min. xyz:", pcd.get_min_bound())
 
-    cbox = o3d.geometry.AxisAlignedBoundingBox(min_bound=pcd.get_max_bound(),
-                                               max_bound=pcd.get_max_bound(),
-                                               color=(1, 0, 0))
-
     # loop visualizations until user satisfied with cropping box
     while True:
         xmax = float(input("xmax = "))
@@ -55,25 +49,24 @@ def crop_pcd_area(pcd):
         o3d.visualization.draw_geometries(
             [pcd, cbox, ax], "Selected Area is within bounding box", vww, vwh)
 
-        bound_q = input("Redefine bounding box? (y/n)"
-                        "\n Enter (y) to redefine, (n) to continue or exit: ")
-        if bound_q == "y":
-            continue
-        elif bound_q == "n":
+        bound_q = input("Enter any key to redefine bounding box."
+                        "\n Enter (q) to to exit: ")
+        if bound_q == "q":
             break
         else:
-            print("Invalid user input.")
-
+            continue
+    
     cpcd = copy.deepcopy(pcd).crop(cbox)
     timestamp = time.strftime("%Y%m%d-%H%M%S")
 
     # crop-and-save bounded area, or exit
     while True:
-        crop_q = input("Crop cloud to selected area and save it? (y/n)\n"
+        crop_q = input("\nCrop cloud to selected area and save it? (y/n)\n"
                        "Enter (y) to crop and save, (n) to exit: ")
         if crop_q == "y":
             pcd_name = f"CroppedPointCloud-{timestamp}.ply"
             o3d.io.write_point_cloud(pcd_name, cpcd)
+            break
         elif crop_q == "n":
             break
         else:
@@ -85,7 +78,7 @@ def crop_pcd_area(pcd):
 
 if __name__ == "__main__":
 
-    pcd_file = input("Please select point cloud file to load.")
+    pcd_file = input("Select point cloud file to load: ")
 
     print(f"\nLoading '{pcd_file}' point cloud...")
     tic = time.perf_counter()
@@ -115,5 +108,3 @@ if __name__ == "__main__":
             [pcd], "Manual area selection", vww, vwh)
     else:
         print("Invalid user input.")
-
-    input("Enter any key to exit.")
