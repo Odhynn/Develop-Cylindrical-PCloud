@@ -7,6 +7,7 @@ import open3d as o3d
 
 print("\nAN ALGORITHM FOR THE DEVELOPMENT OF CYLINDRICAL SURFACES")
 print("  diploma thesis of Odysseus Galanakis")
+print("  supervised by Dr. Andreas Georgopoulos")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
 print()

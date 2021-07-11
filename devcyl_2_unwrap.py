@@ -12,6 +12,7 @@ import devcyl_vis
 
 print("\nAN ALGORITHM FOR THE DEVELOPMENT OF CYLINDRICAL SURFACES")
 print("  diploma thesis of Odysseus Galanakis")
+print("  supervised by Dr. Andreas Georgopoulos")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
 print()
@@ -132,7 +133,7 @@ rpoi = np.asarray(rpcd.points)
 if incr_rotations == pie_slice:  # came full circle, did not find a gap
     print("\nLeftmost point not detected.\
           \nDevelopment width will span 360 degrees.")
-    align_rot = 0  # no rotation
+    tot_rot = 0  # no rotation
 
 # find polar angle theta and use it to rotate the leftmost point onto -x axis
 else:
@@ -141,8 +142,8 @@ else:
     rpcd.rotate(R, center=(0, 0, 0))
 
     # total angle by which cloud was rotated
-    align_rot = z_searching_rot + (np.pi - thetamin)
-    print(f"Leftmost point detected after turning {align_rot} rad.")
+    tot_rot = z_searching_rot + (np.pi - thetamin)
+    print(f"Leftmost point detected after turning {tot_rot} rad.")
 
     rpoi_minindex = np.argmin(rpoi, axis=0)
     print("  Point index: ", rpoi_minindex[0])
@@ -333,7 +334,7 @@ print("Saved corresponding pixel coordinates in devXYZ-{timestamp}.npy")
 with open(f"Log-Unwrap-{timestamp}.txt", "w") as log:
     log.write("Source point cloud : " + pcd_path + "\n")
     log.write("Source fitting log file : " + log_path + "\n")
-    log.write("Leftmost point alignment rotation angle (rad):\n" + str(align_rot))
+    log.write("Leftmost point alignment rotation angle (rad):\n" + str(tot_rot))
 
     log.write("\nGround Sampling Distance (m):\n" + str(gsd))
     log.write("\nDeveloped Area Width (m):\n" + str(devw))
@@ -341,4 +342,4 @@ with open(f"Log-Unwrap-{timestamp}.txt", "w") as log:
     log.write("\nDeveloped Image Width (pixels):\n" + str(Nx))
     log.write("\nDeveloped Image Height (pixels):\n" + str(My))
 
-input("Enter any key to exit.")
+input("Press Enter to exit.")
