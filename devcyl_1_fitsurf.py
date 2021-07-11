@@ -10,7 +10,7 @@ import open3d as o3d
 import devcyl_fit_thr
 import devcyl_vis
 
-print("\nDEVELOPMENT OF CYLINDRICAL SURFACES IN POINT CLOUD FORMAT")
+print("\nAN ALGORITHM FOR THE DEVELOPMENT OF CYLINDRICAL SURFACES")
 print("  diploma thesis of Odysseus Galanakis")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
@@ -116,7 +116,7 @@ o3d.visualization.draw_geometries(
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 pcd_name = f"PointCloud-{timestamp}.ply"
 o3d.io.write_point_cloud(pcd_name, pcd_z)
-print(f"Aligned cloud saved as {pcd_name}.")
+print(f"\nAligned cloud saved as {pcd_name}.")
 
 
 # %% Logging

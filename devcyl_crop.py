@@ -5,7 +5,7 @@ import time
 
 import open3d as o3d
 
-print("\nDEVELOPMENT OF CYLINDRICAL SURFACES IN POINT CLOUD FORMAT")
+print("\nAN ALGORITHM FOR THE DEVELOPMENT OF CYLINDRICAL SURFACES")
 print("  diploma thesis of Odysseus Galanakis")
 print("  School of Rural, Surveying and Geoinformatics Engineering")
 print("  National Technical University of Athens, 2021")
@@ -49,7 +49,7 @@ def crop_pcd_area(pcd):
         o3d.visualization.draw_geometries(
             [pcd, cbox, ax], "Selected Area is within bounding box", vww, vwh)
 
-        bound_q = input("Enter any key to redefine bounding box."
+        bound_q = input("\nEnter any key to redefine bounding box."
                         "\n Enter (q) to to exit: ")
         if bound_q == "q":
             break
