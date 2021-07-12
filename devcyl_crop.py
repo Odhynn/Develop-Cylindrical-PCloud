@@ -51,7 +51,7 @@ def crop_pcd_area(pcd):
             [pcd, cbox, ax], "Selected Area is within bounding box", vww, vwh)
 
         bound_q = input("\nEnter any key to redefine bounding box."
-                        "\n Enter (q) to to exit: ")
+                        "\n Enter (q) to save (or not) and exit: ")
         if bound_q == "q":
             break
         else:
@@ -67,6 +67,7 @@ def crop_pcd_area(pcd):
         if crop_q == "y":
             pcd_name = f"CroppedPointCloud-{timestamp}.ply"
             o3d.io.write_point_cloud(pcd_name, cpcd)
+            print("Saved as", pcd_name)
             break
         elif crop_q == "n":
             break
