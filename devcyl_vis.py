@@ -26,7 +26,8 @@ def create_line(a, b, colour=[0, 0, 0]):
 
 def rotate_line(xk, yk, zmin, zmax, rot_matrix, colour=[0, 0, 1]):
     """
-    Rotates a vertical line (parallel to z-axis) around a point on the xy plane
+    Rotates a vertical line (parallel to z-axis)
+    around her projection (a point on the XY plane)
     --------------------------------------
     xk, yk : coordinates of the line's projection on the xy plane
     zmin, zmax : lower, upper coordinates
