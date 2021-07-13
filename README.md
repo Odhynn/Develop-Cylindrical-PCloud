@@ -1,5 +1,5 @@
 # Develop-Cylindrical-PCloud
-Development of Cylindrical Surfaces in Point Cloud format
+An Algorithm for the Development of Cylindrical Surfaces
 <br>diploma thesis of Odysseus Galanakis
 <br>School of Rural, Surveying and Geoinformatics Engineering
 <br>National Technical University of Athens, 2021
